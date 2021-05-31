@@ -1,17 +1,14 @@
-Declare Function apiShellExecute Lib "shell32.dll" Alias "ShellExecuteA" ( _
-ByVal hwnd As Long, _
-ByVal lpOperation As String, _
-ByVal lpFile As String, _
-ByVal lpParameters As String, _
-ByVal lpDirectory As String, _
-ByVal nShowCmd As Long) _
-As Long
+Declare PtrSafe Function ShellExecute Lib "shell32.dll" _
+Alias "ShellExecuteA" (ByVal hwnd As LongPtr, ByVal lpOperation As String, _
+ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As _
+String, ByVal nShowCmd As Long) As LongPtr
+
 
 Sub PrintFile(ByVal strPathAndFilename As String)
-  Call apiShellExecute(Application.hwnd, "print", strPathAndFilename, vbNullString, vbNullString, 0)
+  Call ShellExecute(Application.hwnd, "print", strPathAndFilename, vbNullString, vbNullString, 0)
 End Sub
 
-Sub BatchPrintPdfDocuments(PartNum As String)
+Sub BatchPrintPdfDocuments()
   Dim strFile As String
   Dim strFolder As String
 
@@ -28,10 +25,10 @@ Sub BatchPrintPdfDocuments(PartNum As String)
   copiesCount = Int(strCopiesCount)
 
   While strFile <> ""
-    For i As Integer = 1 To copiesCount
+    For i = 1 To copiesCount
       PrintFile(strFolder & strFile)
     Next i
-  End While
+  Wend
 
   MsgBox "Wszystkie pliki zostały przekazane do druku. Możesz już bezpiecznie zamknąć Word'a."
 
