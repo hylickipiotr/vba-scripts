@@ -6,5 +6,5 @@
 2. Utwórz nowy plik MS Word
 3. Otwórz okno Visual Basic
 4. Z górej wstążki wybierz `Insert` -> `Module`
-5. Przeklej kod ponizej do okna VBA
+5. Przeklej [skrypt](./main.vbs) do okna VBA
 6. Uruchom skrypt
